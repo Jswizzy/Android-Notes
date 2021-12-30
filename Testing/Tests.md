@@ -261,4 +261,15 @@ class TasksViewModelTest {
 }
 ```
 
+@Before use fore setup
+
+```koltin
+// Subject under test
+private lateinit var tasksViewModel: TasksViewModel
+
+@Before
+fun setupViewModel() {
+    tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
+}
+```
 
