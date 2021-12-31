@@ -1,23 +1,34 @@
-## UI Events
+# UI Events
 
-****UI*: View-based or Compose code that handles user interface
-*UI Events*: user interactions
-*User Events*: Events that the user produces when interacting with the app.
+## Definitions
 
-- the ViewModel is responsible for handling business logic for user events
-- user events can also trigger Ui Behavior such as navigation that is handled by the UI directly
-- business logic is usually the same on different platforms
-- onClickListeners
+UI:
+View-based or Compose code that handles user interface
 
-[UI event decision tree](https://developer.android.com/jetpack/guide/ui-layer/events#decision-tree)
+UI Events:
+user interactions
 
-- if an event updates data in the screen it should be handled by the ViewModel
+User Events:
+Events that the user produces when interacting with the app.
+
+## Handling User Events
+
+The ViewModel is responsible for handling business logic for user events. If an event updates data in the screen it should be handled by the ViewModel.
+User events can also trigger Ui Behavior such as navigation that is handled by the UI directly.
+Business logic is usually the same on different platforms
+
+![UI event decision tree](https://developer.android.com/topic/libraries/architecture/images/mad-arch-uievents-tree.png)
+
+If an event updates data in the screen it should be handled by the ViewModel.
 
 ```kotlin
 @Composable
 fun NewsApp() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "latestNews") {
+    NavHost(
+        navController = navController,
+        startDestination = "latestNews",
+    ) {
         composable("latestNews") {
             MyScreen(
                 // The navigation event is processed by calling the NavController
@@ -47,10 +58,13 @@ fun LatestNewsScreen(
 }
 ```
 
-UDF:
-- UI actions that originate from the ViewModel—ViewModel events—should always result in a UI state update.
-- can recreate state after process death with Saved State Module
+## Unidirectional Data Flow
 
+UI actions that originate from the ViewModel—ViewModel events—should always result in a UI state update.
+
+ViewModel events should always result in UI state updates.
+
+> You can recreate state after process death with Saved State Module
 
 ```kotlin
 data class LoginUiState(
@@ -83,9 +97,13 @@ fun LoginScreen(
 }
 ```
 
-consuming events
+## Consuming events
 
-```koltin
+Consuming events in the `ViewModel` can result in additional UI state changes.
+
+For example displaying a message to the user:
+
+```kotlin
 // Models the message to show on the screen.
 data class UserMessage(val id: Long, val message: String)
 
@@ -122,7 +140,11 @@ class LatestNewsViewModel(/* ... */) : ViewModel() {
         uiState = uiState.copy(userMessages = messages)
     }
 }
+```
 
+The `ViewModel` only needs to know there is a message but doesn't need to know anything about rendering it.
+
+```
 @Composable
 fun LatestNewsScreen(
     snackbarHostState: SnackbarHostState,
@@ -142,7 +164,7 @@ fun LatestNewsScreen(
 }
 ```
 
-principles of UI Layer:
+## Principles of UI Layer
 
 1. Each class should do what they're responsible for, not more. The UI is in charge of screen-specific behavior logic such as navigation calls, click events, and obtaining permission requests. The ViewModel contains business logic and converts the results from lower layers of the hierarchy into UI state.
 
@@ -151,5 +173,3 @@ principles of UI Layer:
 3. If you have multiple consumers and you're worried about the event being consumed multiple times, you might need to reconsider your app architecture. Having multiple concurrent consumers results in the delivered exactly once contract becoming extremely difficult to guarantee, so the amount of complexity and subtle behavior explodes. If you're having this problem, consider pushing those concerns upwards in your UI tree; you might need a different entity scoped higher up in the hierarchy.
 
 4. Think about when the state needs to be consumed. In certain situations, you might not want to keep consuming state when the app is in the background—for example, showing a Toast. In those cases, consider consuming the state when the UI is in the foreground.
-
-
