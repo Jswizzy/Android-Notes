@@ -2,14 +2,14 @@
 
 ## Definitions
 
-UI:
-View-based or Compose code that handles user interface
+UI
+: View-based or Compose code that handles user interface
 
-UI Events:
-user interactions
+UI Events
+: user interactions
 
-User Events:
-Events that the user produces when interacting with the app.
+User Events
+: Events that the user produces when interacting with the app.
 
 ## Handling User Events
 

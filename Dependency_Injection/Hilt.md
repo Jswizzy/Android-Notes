@@ -1,5 +1,7 @@
 # Hilt
 
+[Hilt CodeLab](https://developer.android.com/codelabs/android-hilt) | [Hilt Android Docs](https://developer.android.com/training/dependency-injection/hilt-android) | [Hilt](https://dagger.dev/hilt/)
+
 Hilt is a dependency injection library for Android that reduces boilerplate of doing manual dependency injection.
 
 Hilt is based on top of Dagger.
