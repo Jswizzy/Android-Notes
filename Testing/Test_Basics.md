@@ -69,4 +69,57 @@ Decoupling techniques:
 - Avoid putting large dependencies in activities and fragments.
   Move **business logic** into Composables, ViewModels, or the domain layer.
 - Avoid direct framework dependencies in classes containing business logic such as using a Context in a ViewModel.
-- Make dependencies interchangeable by using interfaces and Dependency Injection. Use Hilt or Manual Dependency Injection.
+- Make dependencies interchangeable by using interfaces and Dependency Injection. Use **Hilt** or Manual Dependency Injection.
+- Do not hard-code dependencies, instead use Dependency Injection.
+
+## Test Isolation
+
+Unit tests should only test the method, function, or class subject.
+
+**Isolation**
+: isolating the 'unit' under test and only testing that part.
+
+**Dependency Injection**
+: Providing dependencies, two forms Constructor and Parameter Injection.
+
+**Constructor Injection**
+: passing dependencies in the constructor, allows for injecting test doubles.
+
+_DefaultTasksRepository.kt_
+
+```kotlin
+// Wihtout Dependency Injection
+class DefaultTasksRepository private constructor(application: Application) {
+
+    private val tasksRemoteDataSource: TasksDataSource
+    private val tasksLocalDataSource: TasksDataSource
+
+   // Some other code
+
+    init {
+        val database = Room.databaseBuilder(application.applicationContext,
+            ToDoDatabase::class.java, "Tasks.db")
+            .build()
+
+        tasksRemoteDataSource = TasksRemoteDataSource
+        tasksLocalDataSource = TasksLocalDataSource(database.taskDao())
+    }
+    // Rest of class
+}
+```
+
+refactoring to use Dependency Injection
+
+```kotlin
+// REPLACE
+class DefaultTasksRepository private constructor(application: Application) { // Rest of class }
+
+// WITH
+
+class DefaultTasksRepository(
+    private val tasksRemoteDataSource: TasksDataSource,
+    private val tasksLocalDataSource: TasksDataSource,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) {
+      // Rest of class
+    }
+```
