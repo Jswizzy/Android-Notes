@@ -52,6 +52,9 @@ Test runner supports the following tasks:
 - Filtering tests
 - Sharing tests
 
+`@RunWith(AndroidJunit4::class))`
+: Used with any class that requires AndroidX Test.
+
 ```kotlin
 @RunWith(AndroidJUnit4::class) // Only needed when mixing JUnit 3 and 4 tests
 @LargeTest // Optional runner annotation
