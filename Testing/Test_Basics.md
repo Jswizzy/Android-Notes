@@ -11,6 +11,12 @@ Instrumented Tests (androidTest source set)
 Assertions
 : checks code behaves as expected
 
+Regression
+: A bug introduced into a previously working feature.
+
+Technical Debt
+: is a concept in software development that reflects the implied cost of additional rework caused by choosing an easy (limited) solution now instead of using a better approach that would take longer.
+
 ## Benefits of Testing
 
 Testing helps to verify the correctness of your app, functional behavior, and usability prior to release to the public.
@@ -21,8 +27,27 @@ Testing also provides the following advantages:
 - Early failure detection in the development cycle.
 - Safer code refactoring, allowing for optimizations without regressions.
 - Stable development velocity, minimizing technical debt.
+- Helps to document how to use a feature.
 
 You can **manually** test your app.However, manual testing does not scale well and can overlook regressions. **Automated testing** provides feedback faster and earlier than manual testing.
+
+## Writing Tests
+
+The most important factors when writing tests are:
+
+- _Naming_, test names should be clear and easy to understand.
+- _Simplicity_, tests should have few assertions and a narrow scope.
+- _Checks One behavior at a time_, tests should have a single responsibility.
+- _Readability_, test should be easy to read.
+
+## Testing Criteria
+
+The most common test criteria are:
+
+- Branches covered
+- Conditions covered
+- Statement covered
+- Function/methods covered
 
 ## Types of tests in Android
 
@@ -85,7 +110,7 @@ Unit tests should only test the method, function, or class subject.
 **Constructor Injection**
 : passing dependencies in the constructor, allows for injecting test doubles.
 
-_DefaultTasksRepository.kt_
+### DefaultTasksRepository.kt
 
 ```kotlin
 // Wihtout Dependency Injection

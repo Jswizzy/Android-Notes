@@ -2,6 +2,15 @@
 
 Test Driven Development is writing tests first before writing the feature.
 
+The benefits are:
+
+- Helps with specification, prevents divinations from the spec.
+- Documents the code in an updated way.
+- Maintainable, Allows for refactoring and encourages clean architecture that is maintainable.
+- Establish confidence in the code, know your code didn't break anything.
+- Write code faster. Code is well documented and easy to change and has less technical debt.
+- Higher test covered, every feature has an existing test.
+
 ## Given, When, Then
 
 One way to think about the structure of a test is to follow the Given, When, Then testing mnemonic. This divides your test into three parts:
@@ -20,3 +29,9 @@ One way to think about the structure of a test is to follow the Given, When, The
 ## Red, Green, Refactor
 
 Confirm test fails, write a solution, then refactor that solution.
+
+Steps:
+
+- _Red_ - Start with a failing test by writing the bare minimum for the code to compile. Asserts that test actually fails and checks the correctness of the expected behavior.
+- _Green_ - Write the minimum code for the test to pass. Add additional requirements and add additional functionality make the tests pass again.
+- _Refactor_ - Clean up the code and refactor.
