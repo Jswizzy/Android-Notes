@@ -119,6 +119,8 @@ A Hilt module is a class that is annotated with `@Module` and `@InstallIn`.
 - The function return type is the interface to provide.
 - The function parameter is the implementation to provide.
 
+Modules that use `@Binds` needs to be abstract.
+
 ```kotlin
 interface SomeInterface {
   fun SomeMethod()
@@ -147,6 +149,8 @@ abstract class SomeModule {
 - The function return type is the type to provide
 - The function parameters are the dependencies of the type
 - The function body is how to create an instance of the type
+
+> Note: Hilt modules that contain only `@Provides` should be an `object` class to optimize the code generated.
 
 ```kotlin
 @Module

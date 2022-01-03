@@ -5,37 +5,20 @@ Service Locator is an alternative pattern to Dependency Injection. It uses a sin
 ## Creating a Service Locator
 
 ```kotlin
-object ServiceLocator {
+class ServiceLocator(applicationContext: Context) {
 
-    private var database: ToDoDatabase? = null
-    @Volatile
-    var tasksRepository: TasksRepository? = null
+    private val logsDatabase = Room.databaseBuilder(
+        applicationContext,
+        AppDatabase::class.java,
+        "logging.db"
+    ).build()
 
-    fun provideTasksRepository(context: Context): TasksRepository {
-        // Needs to be thread safe
-        synchronized(this) {
-            return tasksRepository ?: createTasksRepository(context)
-        }
-    }
+    val loggerLocalDataSource = LoggerLocalDataSource(logsDatabase.logDao())
 
-    private fun createTasksRepository(context: Context): TasksRepository {
-        val newRepo = DefaultTasksRepository(TasksRemoteDataSource, createTaskLocalDataSource(context))
-        tasksRepository = newRepo
-        return newRepo
-    }
+    fun provideDateFormatter() = DateFormatter()
 
-    private fun createTaskLocalDataSource(context: Context): TasksDataSource {
-        val database = database ?: createDataBase(context)
-        return TasksLocalDataSource(database.taskDao())
-    }
-
-    private fun createDataBase(context: Context): ToDoDatabase {
-        val result = Room.databaseBuilder(
-            context.applicationContext,
-            ToDoDatabase::class.java, "Tasks.db"
-        ).build()
-        database = result
-        return result
+    fun provideNavigator(activity: FragmentActivity): AppNavigator {
+        return AppNavigatorImpl(activity)
     }
 }
 ```
