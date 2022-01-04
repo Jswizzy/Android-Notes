@@ -1,7 +1,9 @@
 # Unit Tests
 
 Unit test
-: a local test that runs and verifies the behavior of a small section of code.
+: a local test that runs and verifies the behavior of a small section of code in isolation.
+
+Unit tests are the easiest and quickest tests to write.
 
 Unit tests are simple but require:
 

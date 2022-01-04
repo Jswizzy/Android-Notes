@@ -54,3 +54,17 @@ You should Test:
 The suggested distribution of tests:
 
 ![Testing Pyramid](https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-test-doubles/img/ed5e6485d179c1b9.png)
+
+A typical ratio for testing is:
+
+- UI tests: 10%
+- Integration tests: 20%
+- Unit tests: 70%
+
+## Testing Anti-Patterns
+
+- _Ice cream cone or Inverted pyramid_: Having mostly UI/End-to-End tests. QA and not developers does all the testing.
+
+- _Hourglass_: Lots of Unit and UI tests but very little integration tests.
+
+These anti-patterns lead to tests that are slow to run and thus decrees developer feedback and productivity.

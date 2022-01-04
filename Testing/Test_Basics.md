@@ -66,9 +66,9 @@ Test types for a particular subject:
 
 Tests depending on size and degree of isolation:
 
-- _Unit tests_: verify behavior of a class, method, or function.
-- _End-to-End tests_: Tests a screen or user flow.
-- _Integration tests_: Tests interaction between two or more units.
+- _Unit tests_: verify behavior of a class, method, or function. Also called small tests.
+- _End-to-End tests_: Tests a screen or user flow. Also called large tests.
+- _Integration tests_: Tests interaction between two or more units. Also called medium tests.
 
 ## Instrumented vs local tests
 
