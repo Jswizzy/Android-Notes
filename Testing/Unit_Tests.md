@@ -135,6 +135,11 @@ required for
     }
 ```
 
+## Testing exceptions
+
+The expected parameter of the JUnit test annotation can be used to check if code throws an expected exception.
+`@Test(expected = IllegalArgumentException::class)`
+
 ## Before
 
 @Before use before setup
@@ -148,3 +153,11 @@ fun setupViewModel() {
     tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
 }
 ```
+
+## Other Junit Annotations
+
+JUnit also has other similar annotations:
+
+- `@After`: The method will be executed after each test. You can use it to tear down anything or reset any objects that you set up in @Before.
+- `@BeforeClass`: If you annotate a method with this, it’ll be executed only once before all the tests are executed. For example, opening a file, a connection or a database that is shared in all the tests.
+- `@AfterClass`: Use this one to execute a method only once after all the tests are executed. For example, closing a file, a connection or a database that is shared in all the tests.
